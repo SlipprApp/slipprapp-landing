@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Slippr — The till slip tells the truth. Finally know where your grocery money goes." />
+  <title>Slippr — The till slip tells the truth</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #111827;
+      color: #FAFAF9;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: #D4A24C;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    a:hover {
+      color: #e8b86a;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+  /* ── Hero ── */
+    .hero {
+      padding: 3.5rem 0 4rem;
+      text-align: center;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .logo-mark svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .brand-name {
+      font-size: clamp(2rem, 6vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #FAFAF9;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      font-size: 1.0625rem;
+      color: #D4A24C;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: rgba(250, 250, 249, 0.72);
+      max-width: 28rem;
+      margin: 0 auto 2.25rem;
+    }
+
+    .waitlist-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 22rem;
+      margin: 0 auto;
+    }
+
+    .waitlist-form input[type="email"] {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #FAFAF9;
+      background-color: #1F2937;
+      border: 1px solid rgba(250, 250, 249, 0.12);
+      border-radius: 0.625rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .waitlist-form input[type="email"]::placeholder {
+      color: rgba(250, 250, 249, 0.4);
+    }
+
+    .waitlist-form input[type="email"]:focus {
+      border-color: rgba(212, 162, 76, 0.6);
+    }
+
+    .waitlist-form button {
+      width: 100%;
+      padding: 0.875rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: #111827;
+      background-color: #D4A24C;
+      border: none;
+      border-radius: 0.625rem;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .waitlist-form button:hover {
+      background-color: #e8b86a;
+    }
+
+    .waitlist-form button:active {
+      transform: scale(0.98);
+    }
+
+  /* ── Sections ── */
+    .section {
+      padding: 3.5rem 0;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #D4A24C;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 1.875rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #FAFAF9;
+      margin-bottom: 2rem;
+      line-height: 1.25;
+    }
+
+    .section-title--center {
+      text-align: center;
+    }
+
+  /* ── Features ── */
+    .features-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .feature-card {
+      background-color: #1F2937;
+      border: 1px solid rgba(250, 250, 249, 0.06);
+      border-radius: 0.875rem;
+      padding: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: #FAFAF9;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9375rem;
+      color: rgba(250, 250, 249, 0.65);
+      line-height: 1.55;
+    }
+
+  /* ── Stores ── */
+    .stores-section {
+      background-color: rgba(31, 41, 55, 0.5);
+      border-top: 1px solid rgba(250, 250, 249, 0.06);
+      border-bottom: 1px solid rgba(250, 250, 249, 0.06);
+    }
+
+    .stores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.625rem;
+    }
+
+    .store-item {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: rgba(250, 250, 249, 0.85);
+      padding: 0.75rem 1rem;
+      background-color: #1F2937;
+      border: 1px solid rgba(250, 250, 249, 0.06);
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+
+  /* ── Plans ── */
+    .plans-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .plan-card {
+      background-color: #1F2937;
+      border: 1px solid rgba(250, 250, 249, 0.06);
+      border-radius: 0.875rem;
+      padding: 1.5rem;
+    }
+
+    .plan-card--pro {
+      border-color: rgba(212, 162, 76, 0.35);
+    }
+
+    .plan-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #FAFAF9;
+      margin-bottom: 0.25rem;
+    }
+
+    .plan-price {
+      font-size: 0.875rem;
+      color: #D4A24C;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .plan-list {
+      list-style: none;
+    }
+
+    .plan-list li {
+      font-size: 0.9375rem;
+      color: rgba(250, 250, 249, 0.72);
+      padding: 0.375rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .plan-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      width: 0.375rem;
+      height: 0.375rem;
+      border-radius: 50%;
+      background-color: #D4A24C;
+    }
+
+  /* ── Footer ── */
+    .footer {
+      padding: 2.5rem 0 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(250, 250, 249, 0.06);
+    }
+
+    .footer-text {
+      font-size: 0.8125rem;
+      color: rgba(250, 250, 249, 0.45);
+      line-height: 1.8;
+    }
+
+    .footer-text a {
+      color: rgba(250, 250, 249, 0.55);
+    }
+
+    .footer-text a:hover {
+      color: #D4A24C;
+    }
+
+    .footer-dot {
+      margin: 0 0.35rem;
+      color: rgba(250, 250, 249, 0.25);
+    }
+
+  /* ── Responsive ── */
+    @media (min-width: 640px) {
+      .hero {
+        padding: 5rem 0 5.5rem;
+      }
+
+      .waitlist-form {
+        flex-direction: row;
+        max-width: 32rem;
+      }
+
+      .waitlist-form input[type="email"] {
+        flex: 1;
+      }
+
+      .waitlist-form button {
+        width: auto;
+        white-space: nowrap;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+
+      .stores-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .plans-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .section {
+        padding: 4.5rem 0;
+      }
+
+      .stores-grid {
+        grid-template-columns: repeat(7, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="72" height="72" rx="16" fill="#111827"/>
+          <rect x="14" y="15" width="44" height="6" rx="3" fill="#FAFAF9"/>
+          <rect x="14" y="25" width="32" height="5" rx="2.5" fill="#D4A24C"/>
+          <rect x="14" y="34" width="38" height="4" rx="2" fill="#FAFAF9" opacity="0.55"/>
+          <rect x="14" y="41" width="26" height="4" rx="2" fill="#FAFAF9" opacity="0.35"/>
+          <rect x="14" y="48" width="34" height="4" rx="2" fill="#FAFAF9" opacity="0.55"/>
+          <rect x="14" y="55" width="22" height="4" rx="2" fill="#FAFAF9" opacity="0.35"/>
+          <rect x="14" y="62" width="44" height="2" rx="1" fill="#FAFAF9" opacity="0.2"/>
+        </svg>
+      </div>
+      <h1 class="brand-name">Slippr</h1>
+      <p class="tagline">The till slip tells the truth</p>
+      <p class="hero-sub">
+        Finally know where your grocery money goes — item by item, store by store, rand by rand.
+      </p>
+      <form
+        class="waitlist-form"
+        action="https://formspree.io/f/placeholder"
+        method="POST"
+      >
+        <input
+          type="email"
+          name="email"
+          placeholder="Your email address"
+          required
+          autocomplete="email"
+        />
+        <button type="submit">Join the waitlist</button>
+      </form>
+      <a href="https://testflight.apple.com/join/slippr" style="display:inline-block; margin-top:16px; background:#D4A24C; color:#111827; padding:12px 24px; border-radius:10px; font-weight:600; font-size:15px; text-decoration:none;">
+        Download on TestFlight (Beta)
+      </a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Everything you need to take control</h2>
+      <div class="features-grid">
+        <article class="feature-card">
+          <h3>Scan any till slip</h3>
+          <p>AI reads every item automatically — no manual typing, no missed lines.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Import online orders</h3>
+          <p>Sixty60, asap!, Woolies Dash imported automatically.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Track prices over time</h3>
+          <p>See exactly what's gone up and by how much across every store you shop.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stores -->
+  <section class="section stores-section">
+    <div class="container">
+      <h2 class="section-title section-title--center">
+        Works with all your favourite SA stores
+      </h2>
+      <div class="stores-grid">
+        <div class="store-item">Woolworths</div>
+        <div class="store-item">Checkers</div>
+        <div class="store-item">Pick n Pay</div>
+        <div class="store-item">Spar</div>
+        <div class="store-item">Makro</div>
+        <div class="store-item">Boxer</div>
+        <div class="store-item">Food Lovers Market</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Free & Pro -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Pricing</p>
+      <h2 class="section-title">Free to start, Pro when you're ready</h2>
+      <div class="plans-grid">
+        <article class="plan-card">
+          <h3 class="plan-name">Free</h3>
+          <p class="plan-price">R0 — always free</p>
+          <ul class="plan-list">
+            <li>Scan till slips</li>
+            <li>Basic budget tracking</li>
+            <li>30-day order history</li>
+          </ul>
+        </article>
+        <article class="plan-card plan-card--pro">
+          <h3 class="plan-name">Pro</h3>
+          <p class="plan-price">R59/month</p>
+          <p style="color:#9CA3AF; font-size:13px; margin:0 0 16px;">or R499/year — save R209</p>
+          <ul class="plan-list">
+            <li>Email import for online orders</li>
+            <li>Full order history</li>
+            <li>Excel export</li>
+            <li>Price alerts</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        © 2026 Slippr
+        <span class="footer-dot">·</span>
+        <a href="mailto:hello@slipprapp.com">hello@slipprapp.com</a>
+        <span class="footer-dot">·</span>
+        <a href="./privacy.html">Privacy</a>
+        <span class="footer-dot">·</span>
+        <a href="./terms.html">Terms</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
