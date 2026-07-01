@@ -139,6 +139,143 @@
       transform: scale(0.98);
     }
 
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.875rem;
+      max-width: 22rem;
+      margin: 0 auto;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: #111827;
+      background-color: #D4A24C;
+      border: none;
+      border-radius: 0.625rem;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .hero-cta:hover {
+      background-color: #e8b86a;
+      color: #111827;
+    }
+
+    .hero-cta:active {
+      transform: scale(0.98);
+    }
+
+    .hero-secondary-link {
+      font-size: 0.875rem;
+      color: rgba(250, 250, 249, 0.55);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .hero-secondary-link:hover {
+      color: #D4A24C;
+    }
+
+  /* ── Coming Soon ── */
+    .coming-soon-section {
+      background-color: rgba(31, 41, 55, 0.5);
+      border-top: 1px solid rgba(250, 250, 249, 0.06);
+      border-bottom: 1px solid rgba(250, 250, 249, 0.06);
+    }
+
+    .coming-soon-card {
+      background-color: #1F2937;
+      border: 1px solid rgba(212, 162, 76, 0.2);
+      border-radius: 0.875rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+
+    .coming-soon-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #D4A24C;
+      background-color: rgba(212, 162, 76, 0.12);
+      border: 1px solid rgba(212, 162, 76, 0.25);
+      border-radius: 999px;
+      padding: 0.375rem 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .coming-soon-title {
+      font-size: clamp(1.375rem, 4vw, 1.625rem);
+      font-weight: 700;
+      color: #FAFAF9;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .coming-soon-text {
+      font-size: 0.9375rem;
+      color: rgba(250, 250, 249, 0.65);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .coming-soon-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .coming-soon-form input[type="email"] {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #FAFAF9;
+      background-color: #111827;
+      border: 1px solid rgba(250, 250, 249, 0.12);
+      border-radius: 0.625rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .coming-soon-form input[type="email"]::placeholder {
+      color: rgba(250, 250, 249, 0.4);
+    }
+
+    .coming-soon-form input[type="email"]:focus {
+      border-color: rgba(212, 162, 76, 0.6);
+    }
+
+    .coming-soon-form button {
+      width: 100%;
+      padding: 0.875rem 1.25rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: #FAFAF9;
+      background-color: transparent;
+      border: 1px solid rgba(250, 250, 249, 0.2);
+      border-radius: 0.625rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .coming-soon-form button:hover {
+      border-color: rgba(212, 162, 76, 0.5);
+      color: #D4A24C;
+    }
+
   /* ── Sections ── */
     .section {
       padding: 3.5rem 0;
@@ -316,6 +453,19 @@
         white-space: nowrap;
       }
 
+      .coming-soon-form {
+        flex-direction: row;
+      }
+
+      .coming-soon-form input[type="email"] {
+        flex: 1;
+      }
+
+      .coming-soon-form button {
+        width: auto;
+        white-space: nowrap;
+      }
+
       .features-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.25rem;
@@ -364,23 +514,17 @@
       <p class="hero-sub">
         Finally know where your grocery money goes — item by item, store by store, rand by rand.
       </p>
-      <form
-        class="waitlist-form"
-        action="https://formspree.io/f/placeholder"
-        method="POST"
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="Your email address"
-          required
-          autocomplete="email"
-        />
-        <button type="submit">Join the waitlist</button>
-      </form>
-      <a href="https://testflight.apple.com/join/slippr" style="display:inline-block; margin-top:16px; background:#D4A24C; color:#111827; padding:12px 24px; border-radius:10px; font-weight:600; font-size:15px; text-decoration:none;">
-        Download on TestFlight (Beta)
-      </a>
+      <div class="hero-actions">
+        <a
+          class="hero-cta"
+          href="https://testflight.apple.com/join/slippr"
+        >
+          Download on TestFlight (Beta)
+        </a>
+        <a class="hero-secondary-link" href="#coming-soon">
+          Not ready yet? Get notified at launch
+        </a>
+      </div>
     </div>
   </section>
 
@@ -450,6 +594,33 @@
             <li>Price alerts</li>
           </ul>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming Soon -->
+  <section class="section coming-soon-section" id="coming-soon">
+    <div class="container">
+      <div class="coming-soon-card">
+        <span class="coming-soon-badge">Coming Soon</span>
+        <h2 class="coming-soon-title">Android &amp; App Store</h2>
+        <p class="coming-soon-text">
+          Slippr is in beta on iOS via TestFlight. Android and the full App Store launch are on the way — leave your email and we'll let you know.
+        </p>
+        <form
+          class="coming-soon-form"
+          action="https://formspree.io/f/placeholder"
+          method="POST"
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email address"
+            required
+            autocomplete="email"
+          />
+          <button type="submit">Notify me</button>
+        </form>
       </div>
     </div>
   </section>
