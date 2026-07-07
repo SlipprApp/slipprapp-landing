@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Slippr Works — The till slip tells the truth</title>
+<style>
+  :root {
+    --bg: #0B0F14;
+    --card: #151B23;
+    --border: #1F2937;
+    --cream: #FAFAF9;
+    --muted: #9CA3AF;
+    --amber: #F59E0B;
+    --teal: #2DD4BF;
+    --font-display: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .nav-back {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .nav-back:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 24px;
+    text-align: center;
+  }
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 18px;
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ---------- Signature receipt visual ---------- */
+  .receipt-stage {
+    max-width: 340px;
+    margin: 48px auto 8px;
+    position: relative;
+  }
+  .receipt {
+    background: #FAFAF9;
+    color: #1A1A1A;
+    font-family: var(--font-display);
+    font-size: 13px;
+    padding: 28px 24px 32px;
+    position: relative;
+    box-shadow: 0 24px 60px -20px rgba(0,0,0,0.6);
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 96%,
+      93% 100%, 86% 96%, 79% 100%, 72% 96%, 65% 100%, 58% 96%,
+      51% 100%, 44% 96%, 37% 100%, 30% 96%, 23% 100%, 16% 96%,
+      9% 100%, 2% 96%, 0% 100%
+    );
+  }
+  .receipt-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dashed #D4D4D8;
+    opacity: 0;
+    animation: reveal 0.5s ease forwards;
+  }
+  .receipt-line:last-of-type { border-bottom: none; }
+  .receipt-line span:first-child { color: #52525B; }
+  .receipt-line span:last-child { font-weight: 700; }
+  .receipt-line.tagged span:last-child { color: #0F766E; }
+
+  .receipt-line:nth-child(1) { animation-delay: 0.1s; }
+  .receipt-line:nth-child(2) { animation-delay: 0.25s; }
+  .receipt-line:nth-child(3) { animation-delay: 0.4s; }
+  .receipt-line:nth-child(4) { animation-delay: 0.55s; }
+  .receipt-line:nth-child(5) { animation-delay: 0.7s; }
+
+  .scan-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 42px;
+    background: linear-gradient(180deg, rgba(45,212,191,0) 0%, rgba(45,212,191,0.28) 50%, rgba(45,212,191,0) 100%);
+    animation: sweep 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes sweep {
+    0% { top: 0%; }
+    50% { top: 82%; }
+    100% { top: 0%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .receipt-line { animation: none; opacity: 1; }
+    .scan-line { display: none; }
+  }
+
+  /* ---------- Steps ---------- */
+  .steps {
+    max-width: 900px;
+    margin: 96px auto 0;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+  }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+  .step h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .step p {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ---------- Tips callout ---------- */
+  .section {
+    max-width: 720px;
+    margin: 80px auto 0;
+    padding: 0 24px;
+  }
+  .callout {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 12px;
+    padding: 28px 28px;
+  }
+  .callout-eyebrow {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .callout h3 { margin: 0 0 14px; font-size: 19px; }
+  .tip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 24px;
+    margin-top: 16px;
+  }
+  .tip {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .tip-mark {
+    color: var(--teal);
+    font-family: var(--font-display);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Trust section ---------- */
+  .trust {
+    max-width: 720px;
+    margin: 64px auto 0;
+    padding: 0 24px;
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .trust-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .trust-card .mark {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--teal);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .trust-card h4 {
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
+  .trust-card p {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .section h2 {
+    font-size: 26px;
+    text-align: center;
+    margin: 0 0 8px;
+  }
+  .section .lede {
+    text-align: center;
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+
+  /* ---------- CTA / footer ---------- */
+  .cta {
+    max-width: 600px;
+    margin: 96px auto 0;
+    padding: 48px 24px 80px;
+    text-align: center;
+  }
+  .cta h2 { font-size: 24px; margin: 0 0 10px; }
+  .cta p { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .cta-button {
+    display: inline-block;
+    background: var(--amber);
+    color: #1A1400;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+  .cta-button:hover { transform: translateY(-1px); }
+
+  @media (max-width: 720px) {
+    .steps { grid-template-columns: 1fr; }
+    .tip-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: 1fr; }
+    .hero { padding-top: 40px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="nav">
+    <div class="nav-logo">Slippr</div>
+    <a class="nav-back" href="/">&larr; Back home</a>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">How it works</div>
+    <h1>The till slip tells the truth.<br>Slippr just reads it.</h1>
+    <p>No manual entry. No guessing what "Checkers R487" actually bought you. Three steps from paper to insight.</p>
+  </div>
+
+  <div class="receipt-stage">
+    <div class="receipt">
+      <div class="scan-line"></div>
+      <div class="receipt-line"><span>FULL CREAM MILK 1L</span><span>35.99</span></div>
+      <div class="receipt-line"><span>FREE RANGE EGGS 6S</span><span>42.99</span></div>
+      <div class="receipt-line tagged"><span>&#10003; Dairy &amp; Eggs</span><span>78.98</span></div>
+      <div class="receipt-line"><span>CHEDDAR CHEESE 400G</span><span>64.99</span></div>
+      <div class="receipt-line tagged"><span>&#10003; Reconciled</span><span>R143.97</span></div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01 — CAPTURE</div>
+      <h3>Scan or import</h3>
+      <p>Photograph a till slip from Checkers, Pick n Pay, or Woolworths — or connect Gmail so your Sixty60, asap!, and Dash orders arrive automatically.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02 — READ</div>
+      <h3>We extract every line</h3>
+      <p>Slippr reads each item and price individually — not just the total — and checks its own maths against the slip's printed total before you see it.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03 — UNDERSTAND</div>
+      <h3>See where it went</h3>
+      <p>Every item lands in a category automatically. Track price changes on things you buy often, and export the lot whenever you need to.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="callout">
+      <div class="callout-eyebrow">Get the best scan</div>
+      <h3>Four things that make a big difference</h3>
+      <div class="tip-grid">
+        <div class="tip"><span class="tip-mark">&gt;</span>Good, even light — avoid shadows across the slip</div>
+        <div class="tip"><span class="tip-mark">&gt;</span>Lay it flat — a crumpled slip is harder to read accurately</div>
+        <div class="tip"><span class="tip-mark">&gt;</span>Hold your phone steady, directly above the slip</div>
+        <div class="tip"><span class="tip-mark">&gt;</span>Give the items a quick check before saving — you can always fix a line</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="trust">
+    <h2>Built to catch its own mistakes</h2>
+    <p class="lede">OCR isn't perfect. So Slippr doesn't just trust it blindly.</p>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <span class="mark">&#8776;</span>
+        <h4>Total reconciliation</h4>
+        <p>Every scan is checked against the slip's own printed total. If the numbers don't add up, we flag it — before it throws off your spending history.</p>
+      </div>
+      <div class="trust-card">
+        <span class="mark">&#9998;</span>
+        <h4>Always editable</h4>
+        <p>Flagged or not, every item stays fully editable. It's your data — Slippr's job is to save you typing, not take away control.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>Ready to see your own numbers?</h2>
+    <p>Free to start — scan your first slip in under a minute.</p>
+    <a class="cta-button" href="/">Get Slippr</a>
+  </div>
+
+</body>
+</html>
