@@ -126,7 +126,7 @@
     <a class="brand" href="https://slipprapp.com">Slippr</a>
     <p class="tagline">Know exactly where every rand goes</p>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: June 2026</p>
+    <p class="updated">Last updated: July 2026</p>
   </header>
 
   <main>
@@ -182,9 +182,10 @@
     <section>
       <h2>Data storage</h2>
       <p>
-        Your data is stored securely on <strong>Supabase</strong> servers. Data is protected
-        <strong>in transit</strong> using industry-standard encryption (TLS/HTTPS) and
-        <strong>at rest</strong> as provided by our infrastructure providers.
+        Your data is stored securely using a managed cloud database and authentication
+        platform. Data is protected <strong>in transit</strong> using industry-standard
+        encryption (TLS/HTTPS) and <strong>at rest</strong> as provided by our infrastructure
+        providers.
       </p>
       <p>
         We take reasonable technical and organisational measures to prevent unauthorised access,
@@ -224,25 +225,42 @@
 
     <section>
       <h2>Third party services</h2>
-      <p>Slippr relies on trusted third-party providers, including:</p>
+      <p>
+        Slippr relies on trusted third-party providers to deliver certain features. These
+        providers process data on our behalf under their own privacy and security terms, and
+        we only share the minimum data necessary for each one to perform its function:
+      </p>
       <ul>
         <li>
-          <strong>Supabase</strong> — database, authentication, and secure data storage.
+          <strong>Cloud database and authentication platform</strong> — used to securely store
+          your account and grocery order data, and to manage sign-in.
         </li>
         <li>
-          <strong>Google Cloud Vision API</strong> — optical character recognition (OCR) for
-          till-slip scanning. Images sent for OCR are processed for text extraction only;
+          <strong>Text recognition service</strong> — used to read text from photographed till
+          slips. Images sent for this purpose are processed for text extraction only;
           <strong>we do not store till-slip images</strong> on our servers after processing.
         </li>
         <li>
-          <strong>Google Cloud</strong> — underlying cloud infrastructure used by some of our
-          service providers.
+          <strong>AI-based data extraction service</strong> — used to structure recognised
+          till-slip text into individual line items (product names and prices).
+        </li>
+        <li>
+          <strong>Subscription management provider</strong> — used to process Slippr Pro
+          subscription payments through the Apple App Store. This provider only receives the
+          information necessary to verify and manage your subscription status; Slippr does not
+          receive or store your payment card details.
+        </li>
+        <li>
+          <strong>Google authentication service</strong> — used only if you choose to connect
+          your Gmail account, so Slippr can automatically import grocery order confirmation
+          emails. We only read emails containing grocery order line items; we do not access,
+          read, or store any other email content.
+        </li>
+        <li>
+          <strong>Underlying cloud infrastructure</strong> — used by some of our service
+          providers to host and run their services.
         </li>
       </ul>
-      <p>
-        These providers process data on our behalf under their own privacy and security terms.
-        We only share what is necessary to deliver the relevant feature.
-      </p>
     </section>
 
     <section>
