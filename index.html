@@ -169,6 +169,16 @@
       color: #111827;
     }
 
+    .hero-cta-badge {
+      background-color: transparent;
+      padding: 0;
+      width: auto;
+      display: inline-flex;
+      justify-content: center;
+    }
+    .hero-cta-badge:hover {
+      background-color: transparent;
+    }
     .hero-cta:active {
       transform: scale(0.98);
     }
@@ -405,10 +415,16 @@
       </p>
       <div class="hero-actions">
         <a
-          class="hero-cta"
+          class="hero-cta hero-cta-badge"
           href="https://testflight.apple.com/join/83XUq3WH"
         >
-          Download on TestFlight (Beta)
+          <img src="assets/app-store-badge.svg" alt="Download on the App Store" style="height: 48px;" />
+        </a>
+        <a
+          class="hero-cta hero-cta-badge"
+          href="https://play.google.com/apps/internaltest/4701051434944082320"
+        >
+          <img src="assets/google-play-badge.png" alt="Get it on Google Play" style="height: 48px;" />
         </a>
         <a class="hero-secondary-link" href="./how-it-works.html">
           See how it works
