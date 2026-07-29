@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How SlipSide Works — The story behind the spend.</title>
+<title>How SlipSide Works: The story behind the spend.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0B0F14;
-    --card: #151B23;
-    --border: #1F2937;
-    --cream: #FAFAF9;
-    --muted: #9CA3AF;
-    --amber: #F59E0B;
-    --teal: #2DD4BF;
+    --bg: #F5FBF7;
+    --card: #EAF7EF;
+    --border: #E2E8F0;
+    --navy: #102A43;
+    --slate: #334155;
+    --muted: #64748B;
+    --green: #40DE7F;
     --font-display: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-heading: Manrope, Inter, sans-serif;
+    --font-body: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -22,28 +26,66 @@
   body {
     margin: 0;
     background: var(--bg);
-    color: var(--cream);
+    color: var(--slate);
     font-family: var(--font-body);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
 
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--navy);
+  }
+
   a { color: inherit; }
+
+  /* ---------- Page bands ---------- */
+  .band {
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+  }
+  .band--white { background: #F5FBF7; }
+  .band--tint { background: var(--card); }
+  .band-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 24px;
+  }
+  .band-inner--narrow {
+    max-width: 720px;
+  }
+  .band-inner--steps {
+    max-width: 900px;
+  }
+  .band-inner--cta {
+    max-width: 600px;
+    text-align: center;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
 
   /* ---------- Nav ---------- */
   .nav {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 24px 24px 0;
+    padding: 32px 24px 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
   }
   .nav-logo {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: -0.02em;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .nav-logo img {
+    height: 140px;
+    width: auto;
+    max-width: 100%;
+    display: block;
   }
   .nav-back {
     font-size: 14px;
@@ -54,22 +96,22 @@
     border-radius: 999px;
     transition: border-color 0.2s ease, color 0.2s ease;
   }
-  .nav-back:hover { border-color: var(--teal); color: var(--teal); }
+  .nav-back:hover { border-color: var(--green); color: var(--green); }
 
   /* ---------- Hero ---------- */
   .hero {
     max-width: 720px;
     margin: 0 auto;
-    padding: 64px 24px 24px;
+    padding: 28px 24px 8px;
     text-align: center;
   }
   .eyebrow {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: var(--green);
     margin-bottom: 14px;
   }
   .hero h1 {
@@ -90,7 +132,7 @@
   /* ---------- Signature receipt visual ---------- */
   .receipt-stage {
     max-width: 340px;
-    margin: 48px auto 8px;
+    margin: 28px auto 16px;
     position: relative;
   }
   .receipt {
@@ -100,7 +142,8 @@
     font-size: 13px;
     padding: 28px 24px 32px;
     position: relative;
-    box-shadow: 0 24px 60px -20px rgba(0,0,0,0.6);
+    box-shadow: 0 24px 60px -20px rgba(16, 42, 67, 0.18);
+    border: 1px solid var(--border);
     clip-path: polygon(
       0% 0%, 100% 0%, 100% 96%,
       93% 100%, 86% 96%, 79% 100%, 72% 96%, 65% 100%, 58% 96%,
@@ -131,7 +174,7 @@
     position: absolute;
     left: 0; right: 0;
     height: 42px;
-    background: linear-gradient(180deg, rgba(45,212,191,0) 0%, rgba(45,212,191,0.28) 50%, rgba(45,212,191,0) 100%);
+    background: linear-gradient(180deg, rgba(64,222,127,0) 0%, rgba(64,222,127,0.28) 50%, rgba(64,222,127,0) 100%);
     animation: sweep 2.6s ease-in-out infinite;
     pointer-events: none;
   }
@@ -152,24 +195,21 @@
 
   /* ---------- Steps ---------- */
   .steps {
-    max-width: 900px;
-    margin: 96px auto 0;
-    padding: 0 24px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 16px;
   }
   .step {
-    background: var(--card);
+    background: #F5FBF7;
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 24px;
+    border-radius: 18px;
+    padding: 22px 20px;
   }
   .step-num {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: 13px;
     font-weight: 700;
-    color: var(--amber);
+    color: var(--green);
     letter-spacing: 0.05em;
     margin-bottom: 14px;
   }
@@ -186,25 +226,20 @@
   }
 
   /* ---------- Tips callout ---------- */
-  .section {
-    max-width: 720px;
-    margin: 80px auto 0;
-    padding: 0 24px;
-  }
   .callout {
     background: var(--card);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--amber);
-    border-radius: 12px;
-    padding: 28px 28px;
+    border-left: 3px solid var(--green);
+    border-radius: 16px;
+    padding: 22px 24px;
   }
   .callout-eyebrow {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: var(--green);
     margin-bottom: 10px;
   }
   .callout h3 { margin: 0 0 14px; font-size: 19px; }
@@ -222,32 +257,41 @@
     line-height: 1.5;
   }
   .tip-mark {
-    color: var(--teal);
+    color: var(--green);
     font-family: var(--font-display);
     flex-shrink: 0;
   }
 
   /* ---------- Trust section ---------- */
-  .trust {
-    max-width: 720px;
-    margin: 64px auto 0;
-    padding: 0 24px;
+  .trust-head {
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+  .trust-head h2 {
+    font-size: 26px;
+    margin: 0 0 8px;
+  }
+  .trust-head .lede {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 480px;
+    margin: 0 auto;
   }
   .trust-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 16px;
   }
   .trust-card {
-    background: var(--card);
+    background: #F5FBF7;
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
+    border-radius: 18px;
+    padding: 20px;
   }
   .trust-card .mark {
     font-family: var(--font-display);
     font-size: 20px;
-    color: var(--teal);
+    color: var(--green);
     margin-bottom: 12px;
     display: block;
   }
@@ -262,125 +306,130 @@
     line-height: 1.6;
   }
 
-  .section h2 {
-    font-size: 26px;
-    text-align: center;
-    margin: 0 0 8px;
-  }
-  .section .lede {
-    text-align: center;
-    color: var(--muted);
-    font-size: 15px;
-    max-width: 480px;
-    margin: 0 auto 32px;
-  }
-
   /* ---------- CTA / footer ---------- */
-  .cta {
-    max-width: 600px;
-    margin: 96px auto 0;
-    padding: 48px 24px 80px;
-    text-align: center;
-  }
   .cta h2 { font-size: 24px; margin: 0 0 10px; }
-  .cta p { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .cta p { color: var(--muted); font-size: 15px; margin: 0 0 20px; }
   .cta-button {
     display: inline-block;
-    background: var(--amber);
-    color: #1A1400;
+    background: var(--green);
+    color: var(--navy);
     font-weight: 700;
     font-size: 15px;
     padding: 14px 32px;
     border-radius: 999px;
     text-decoration: none;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, background-color 0.15s ease;
   }
-  .cta-button:hover { transform: translateY(-1px); }
+  .cta-button:hover { transform: translateY(-1px); background: #2fc86a; }
 
   @media (max-width: 720px) {
     .steps { grid-template-columns: 1fr; }
     .tip-grid { grid-template-columns: 1fr; }
     .trust-grid { grid-template-columns: 1fr; }
-    .hero { padding-top: 40px; }
+    .hero { padding-top: 20px; }
+    .nav { padding-top: 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-logo img {
+      height: 85px;
+    }
+    .nav {
+      padding: 24px 20px 8px;
+    }
   }
 </style>
 </head>
 <body>
 
-  <div class="nav">
-    <div class="nav-logo">SlipSide</div>
-    <a class="nav-back" href="/">&larr; Back home</a>
-  </div>
-
-  <div class="hero">
-    <div class="eyebrow">How it works</div>
-    <h1>The story behind the spend.<br>SlipSide just reads it.</h1>
-    <p>No manual entry. No guessing what "Checkers R487" actually bought you. Three steps from paper to insight.</p>
-  </div>
-
-  <div class="receipt-stage">
-    <div class="receipt">
-      <div class="scan-line"></div>
-      <div class="receipt-line"><span>FULL CREAM MILK 1L</span><span>35.99</span></div>
-      <div class="receipt-line"><span>FREE RANGE EGGS 6S</span><span>42.99</span></div>
-      <div class="receipt-line tagged"><span>&#10003; Dairy &amp; Eggs</span><span>78.98</span></div>
-      <div class="receipt-line"><span>CHEDDAR CHEESE 400G</span><span>64.99</span></div>
-      <div class="receipt-line tagged"><span>&#10003; Reconciled</span><span>R143.97</span></div>
+  <div class="band band--white">
+    <div class="nav">
+      <a class="nav-logo" href="/"><img src="assets/logo-navy.png" alt="SlipSide: The story behind the spend." width="289" height="140" /></a>
+      <a class="nav-back" href="/">&larr; Back home</a>
     </div>
-  </div>
 
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01 — CAPTURE</div>
-      <h3>Scan or import</h3>
-      <p>Photograph a till slip from Checkers, Pick n Pay, or Woolworths — or connect the Gmail account you use for Sixty60, asap!, and Dash accounts so your orders arrive automatically.</p>
+    <div class="hero">
+      <div class="eyebrow">How it works</div>
+      <h1>The story behind the spend.<br>SlipSide just reads it.</h1>
+      <p>No manual entry. No guessing what "Checkers R487" actually bought you. Three steps from paper to insight.</p>
     </div>
-    <div class="step">
-      <div class="step-num">02 — READ</div>
-      <h3>We extract every line</h3>
-      <p>SlipSide reads each item and price individually — not just the total — and checks its own maths against the slip's printed total before you see it.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03 — UNDERSTAND</div>
-      <h3>See where it went</h3>
-      <p>Every item lands in a category automatically. Track price changes on things you buy often, and export the lot whenever you need to.</p>
-    </div>
-  </div>
 
-  <div class="section">
-    <div class="callout">
-      <div class="callout-eyebrow">Get the best scan</div>
-      <h3>Four things that make a big difference</h3>
-      <div class="tip-grid">
-        <div class="tip"><span class="tip-mark">&gt;</span>Good, even light — avoid shadows across the slip</div>
-        <div class="tip"><span class="tip-mark">&gt;</span>Lay it flat — a crumpled slip is harder to read accurately</div>
-        <div class="tip"><span class="tip-mark">&gt;</span>Hold your phone steady, directly above the slip</div>
-        <div class="tip"><span class="tip-mark">&gt;</span>Give the items a quick check before saving — you can always fix a line</div>
+    <div class="receipt-stage">
+      <div class="receipt">
+        <div class="scan-line"></div>
+        <div class="receipt-line"><span>FULL CREAM MILK 1L</span><span>35.99</span></div>
+        <div class="receipt-line"><span>FREE RANGE EGGS 6S</span><span>42.99</span></div>
+        <div class="receipt-line tagged"><span>&#10003; Dairy &amp; Eggs</span><span>78.98</span></div>
+        <div class="receipt-line"><span>CHEDDAR CHEESE 400G</span><span>64.99</span></div>
+        <div class="receipt-line tagged"><span>&#10003; Reconciled</span><span>R143.97</span></div>
       </div>
     </div>
   </div>
 
-  <div class="trust">
-    <h2>Built to catch its own mistakes</h2>
-    <p class="lede">OCR isn't perfect. So SlipSide doesn't just trust it blindly.</p>
-    <div class="trust-grid">
-      <div class="trust-card">
-        <span class="mark">&#8776;</span>
-        <h4>Total reconciliation</h4>
-        <p>Every scan is checked against the slip's own printed total. If the numbers don't add up, we flag it — before it throws off your spending history.</p>
-      </div>
-      <div class="trust-card">
-        <span class="mark">&#9998;</span>
-        <h4>Always editable</h4>
-        <p>Flagged or not, every item stays fully editable. It's your data — SlipSide's job is to save you typing, not take away control.</p>
+  <div class="band band--tint">
+    <div class="band-inner band-inner--steps">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01: CAPTURE</div>
+          <h3>Scan or import</h3>
+          <p>Photograph a till slip from Checkers, Pick n Pay, or Woolworths, or connect the Gmail account you use for Sixty60, asap!, and Dash accounts so your orders arrive automatically.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02: READ</div>
+          <h3>We extract every line</h3>
+          <p>SlipSide reads each item and price individually, not just the total, and checks its own maths against the slip's printed total before you see it.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03: UNDERSTAND</div>
+          <h3>See where it went</h3>
+          <p>Every item lands in a category automatically. Track price changes on things you buy often, and export the lot whenever you need to.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="cta">
-    <h2>Ready to see your own numbers?</h2>
-    <p>Free to start — scan your first slip in under a minute.</p>
-    <a class="cta-button" href="/">Get SlipSide</a>
+  <div class="band band--white">
+    <div class="band-inner band-inner--narrow">
+      <div class="callout">
+        <div class="callout-eyebrow">Get the best scan</div>
+        <h3>Four things that make a big difference</h3>
+        <div class="tip-grid">
+          <div class="tip"><span class="tip-mark">&gt;</span>Good, even light, avoid shadows across the slip</div>
+          <div class="tip"><span class="tip-mark">&gt;</span>Lay it flat, a crumpled slip is harder to read accurately</div>
+          <div class="tip"><span class="tip-mark">&gt;</span>Hold your phone steady, directly above the slip</div>
+          <div class="tip"><span class="tip-mark">&gt;</span>Give the items a quick check before saving, you can always fix a line</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band band--tint">
+    <div class="band-inner band-inner--narrow">
+      <div class="trust-head">
+        <h2>Built to catch its own mistakes</h2>
+        <p class="lede">OCR isn't perfect. So SlipSide doesn't just trust it blindly.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <span class="mark">&#8776;</span>
+          <h4>Total reconciliation</h4>
+          <p>Every scan is checked against the slip's own printed total. If the numbers don't add up, we flag it before it throws off your spending history.</p>
+        </div>
+        <div class="trust-card">
+          <span class="mark">&#9998;</span>
+          <h4>Always editable</h4>
+          <p>Flagged or not, every item stays fully editable. It's your data. SlipSide's job is to save you typing, not take away control.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band band--white">
+    <div class="band-inner band-inner--cta cta">
+      <h2>Ready to see your own numbers?</h2>
+      <p>Free to start: scan your first slip in under a minute.</p>
+      <a class="cta-button" href="/">Get SlipSide</a>
+    </div>
   </div>
 
 </body>
